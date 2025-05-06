@@ -1,0 +1,168 @@
+import sys
+import os
+import argparse
+import numpy as np
+from PIL import Image
+import matplotlib.pyplot as plt
+import pandas as pd
+
+try:
+    from skimage.metrics import structural_similarity as ssim
+    HAVE_SSIM = True
+except ImportError:
+    HAVE_SSIM = False
+
+
+def mse(a: Image.Image, b: Image.Image) -> float:
+    """
+    Mean squared error between two images.
+    """
+    
+    arr_a = np.array(a, float)
+    arr_b = np.array(b, float)
+
+    return np.mean((arr_a - arr_b) ** 2)
+
+def psnr(a: Image.Image, b: Image.Image) -> float:
+    """
+    Peak signal-to-noise ratio between two images.
+    """
+
+    MSE = mse(a, b)
+
+    if MSE == 0:
+        return float('inf')
+
+    PIXEL_MAX = 255.0
+
+    return 20 * np.log10(PIXEL_MAX / np.sqrt(MSE))
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Compute MSE/PSNR for a set of compressed images and plot results."
+    )
+    parser.add_argument('original', help="Path to the original grayscale image.")
+    parser.add_argument('basename', help="Base name for compressed images, e.g., 'Lena' for Lena_k0.10.png.")
+    parser.add_argument('--keeps', nargs='+', type=float,
+                        default=[0.01, 0.05, 0.10, 0.20, 0.50, 1.00],
+                        help="List of keep fractions to analyze.")
+    args = parser.parse_args()
+
+    """
+    Original image and its size.
+    """
+    
+    orig_img = Image.open(args.original).convert('L')
+    orig_size = os.path.getsize(args.original) 
+    metrics = []
+
+    for k in args.keeps:
+        decimal = f"{k:.2f}" # e.g. "0.10"
+        nodot  = f"{int(k*100):02d}" # e.g. "10"
+        comp_img = None
+
+        for suffix in (decimal, nodot):
+            path = f"{args.basename}_k{suffix}.png"
+            try:
+                comp_img = Image.open(path).convert('L')
+                print(f"Loaded compressed image: {path}")
+                break
+            except FileNotFoundError:
+                continue
+        if comp_img is None:
+            print(f"Error: could not find {args.basename}_k{decimal}.png or {args.basename}_k{nodot}.png")
+            sys.exit(1)
+
+        if orig_img.size != comp_img.size:
+            orig_resized = orig_img.resize(comp_img.size, resample=Image.LANCZOS)
+        else:
+            orig_resized = orig_img
+
+        """
+        Metrics
+        """
+        
+        M = mse(orig_resized, comp_img)
+        P = psnr(orig_resized, comp_img)
+        comp_size = os.path.getsize(path)
+        size_ratio = comp_size / orig_size
+
+        entry = {'keep': k, 'MSE': M, 'PSNR': P, 'SizeRatio': size_ratio}
+
+        if HAVE_SSIM:
+            arr_o = np.array(orig_resized, float)
+            arr_c = np.array(comp_img, float)
+            entry['SSIM'] = ssim(arr_o, arr_c, data_range=255)
+        metrics.append(entry)
+
+    """
+    Builds DataFrame and saves in multiple formats.
+    """
+    
+    df = pd.DataFrame(metrics)
+    df.to_csv('metrics_summary.csv',sep='\t', index=False)
+    df.to_csv('metrics_summary.txt', sep='\t', index=False)
+
+    """
+    Try and catch for interactive display.
+    """
+    try:
+        from ace_tools import display_dataframe_to_user
+        display_dataframe_to_user("Compression Metrics", df)
+    except ImportError:
+        pass
+
+    """
+    PSNR vs Keep
+    """
+    plt.figure()
+    plt.plot(df['keep'], df['PSNR'], marker='o')
+    plt.xlabel('Keep Fraction')
+    plt.ylabel('PSNR (dB)')
+    plt.title('PSNR vs Keep Fraction')
+    plt.savefig('psnr_vs_keep.png')
+    plt.close()
+
+    """
+    MSE vs Keep
+    """
+    plt.figure()
+    plt.plot(df['keep'], df['MSE'], marker='o')
+    plt.xlabel('Keep Fraction')
+    plt.ylabel('MSE')
+    plt.title('MSE vs Keep Fraction')
+    plt.savefig('mse_vs_keep.png')
+    plt.close()
+
+    """
+    Size Ratio vs Keep
+    """
+    plt.figure()
+    plt.plot(df['keep'], df['SizeRatio'], marker='o')
+    plt.xlabel('Keep Fraction')
+    plt.ylabel('Size Ratio')
+    plt.title('Size Ratio vs Keep Fraction')
+    plt.savefig('size_ratio_vs_keep.png')
+    plt.close()
+
+    """
+    SSIM vs Keep (if available)
+    """
+    if HAVE_SSIM:
+        plt.figure()
+        plt.plot(df['keep'], df['SSIM'], marker='o')
+        plt.xlabel('Keep Fraction')
+        plt.ylabel('SSIM')
+        plt.title('SSIM vs Keep Fraction')
+        plt.savefig('ssim_vs_keep.png')
+        plt.close()
+
+    saved = ["metrics_summary.csv", "metrics_summary.txt",
+             "psnr_vs_keep.png", "mse_vs_keep.png", "size_ratio_vs_keep.png"]
+
+    if HAVE_SSIM:
+        saved.append("ssim_vs_keep.png")
+    print("Saved " + ", ".join(saved) + ".")
+
+if __name__ == '__main__':
+    main()

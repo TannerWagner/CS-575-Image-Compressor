@@ -1,0 +1,47 @@
+\babel@toc {english}{}\relax 
+\contentsline {section}{\numberline {1}Abstract:}{3}{section.1}%
+\contentsline {section}{\numberline {2}Introduction to the Discrete Fourier Transform:}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Fourier Transform (FT):}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Discrete Fourier Transform (DFT):}{3}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Explanation:}{4}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Cooley-Tukey FFT Algorithm:}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Pseudocode:}{6}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}The Master Theorem for Dividing Functions:}{6}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Brief Complexity Analysis:}{7}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Note on 2D Implementation:}{7}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Implementation:}{7}{section.4}%
+\contentsline {subsection}{\numberline {4.1}2D FFT Compressor (\texttt {compress.py})}{8}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Metrics and Visualization (\texttt {analyze.py})}{9}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3} Directory Structure}{10}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Experimental Setup:}{11}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Test Images}{11}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Compression Procedure:}{11}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Analysis Procedure}{11}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Benchmarking Procedure}{12}{subsection.5.4}%
+\contentsline {section}{\numberline {6}Quality Metrics}{12}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Mean Squared Error (MSE)}{12}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Peak Signal-to-Noise Ratio (PSNR)}{13}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Structural Similarity Index (SSIM)}{13}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Compression Ratio}{13}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}Expected Plots}{13}{subsection.6.5}%
+\contentsline {section}{\numberline {7}Results}{14}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Visual Compression Examples}{14}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Lena Compression Results}{27}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Mandrill Compression Results}{29}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Summary of Results}{32}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Complexity Benchmark}{32}{subsection.7.5}%
+\contentsline {subsection}{\numberline {7.6}Lena Complexity:}{33}{subsection.7.6}%
+\contentsline {subsection}{\numberline {7.7}Mandrill Complexity:}{35}{subsection.7.7}%
+\contentsline {section}{\numberline {8}Singular Value Decomposition and Eckart-Young Theorem}{36}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Singular Value Decomposition}{36}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Best Rank-\(\,k\) Approximation: Eckart–Young–Mirsky Theorem}{37}{subsection.8.2}%
+\contentsline {paragraph}{Theorem (Eckart–Young–Mirsky).}{37}{section*.30}%
+\contentsline {paragraph}{Proof Sketch.}{38}{section*.31}%
+\contentsline {section}{\numberline {9}Comparison: FFT Thresholding vs.\ SVD Low‐Rank Approximation}{38}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Algorithmic Complexity}{38}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Approximation Optimality}{39}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Implementation and Storage Considerations}{39}{subsection.9.3}%
+\contentsline {subsection}{\numberline {9.4}Empirical Trade-offs}{40}{subsection.9.4}%
+\contentsline {section}{\numberline {10}Conclusion}{40}{section.10}%
+\contentsline {section}{\numberline {A}Code Listings}{41}{appendix.A}%
+\contentsline {section}{\numberline {B}Works Cited}{52}{appendix.B}%

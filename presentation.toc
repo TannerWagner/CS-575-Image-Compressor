@@ -1,0 +1,12 @@
+\beamer@sectionintoc {1}{Abstract}{3}{0}{1}
+\beamer@sectionintoc {2}{Introduction to the Fourier Transform}{4}{0}{2}
+\beamer@sectionintoc {3}{Introduction to the DFT}{5}{0}{3}
+\beamer@sectionintoc {4}{Intuition Moving Forward}{7}{0}{4}
+\beamer@sectionintoc {5}{Cooley-Tukey Algorithm}{8}{0}{5}
+\beamer@sectionintoc {6}{Implementation}{14}{0}{6}
+\beamer@sectionintoc {7}{Experimental Setup}{23}{0}{7}
+\beamer@sectionintoc {8}{Results}{33}{0}{8}
+\beamer@sectionintoc {9}{Singular Value Decomposition and Eckart–Young}{65}{0}{9}
+\beamer@sectionintoc {10}{Comparison: FFT vs.\ SVD}{69}{0}{10}
+\beamer@sectionintoc {11}{Conclusion}{74}{0}{11}
+\beamer@sectionintoc {12}{Appendix}{75}{1}{12}

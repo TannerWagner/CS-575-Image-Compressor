@@ -1,0 +1,10 @@
+\frametitle{Implementation Pseudocode}
+\begin{verbatim}
+function svd_compress(A, k):
+    (U, S, Vt) = svd(A)
+    U_k   = U[:, 0:k]
+    S_k   = diag(S[0:k])
+    Vt_k  = Vt[0:k, :]
+    A_k   = U_k * S_k * Vt_k
+    return A_k
+\end{verbatim}
